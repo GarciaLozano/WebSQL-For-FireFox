@@ -86,12 +86,13 @@ Cu.import("resource://gre/modules/Services.jsm");
 						var nextRow;
 						while (nextRow = aResultSet.getNextRow()) {
 							var row = {};
+							row.__exposedProps__ = {};
 							for (var i = 0; i < statement.columnCount; i++)
 							{
 								var colName = statement.getColumnName(i);
 								row[colName] = nextRow.getResultByIndex(i);
+								row.__exposedProps__[colName] = "r";
 							}
-							row.__exposedProps__ = {id : "r", text : "r"};
                             rows.push(row);
 						}
 					}
